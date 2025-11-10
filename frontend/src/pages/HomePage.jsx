@@ -5,6 +5,7 @@ function HomePage() {
   return (
     <>
       <Header />
+      <div>Home Page Content</div>
     </>
   );
 }

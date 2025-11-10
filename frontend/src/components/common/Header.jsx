@@ -10,23 +10,23 @@ export default function Header() {
         <SearchBar />
       </div>
       {/* Ul li list */}
-      <div className="flex items-center gap-8">
-        <ul className="flex gap-6">
-          <li className="hover:text-blue-500 cursor-pointer transition">
-            Trang chủ
+      <div className="flex items-center gap-[6px]">
+        <ul className="flex gap-[6px]">
+          <li className="bg-[#E6E4E0] px-[25px] py-[6px] rounded-full hover:text-white hover:bg-[#04EEF6] cursor-pointer transition">
+            <a href="">Trang chủ</a>
           </li>
-          <li className="hover:text-blue-500 cursor-pointer transition">
-            Trợ giúp
+          <li className="bg-[#E6E4E0] px-[25px] py-[6px] rounded-full hover:text-white hover:bg-[#04EEF6] cursor-pointer transition">
+            <a href="">Trợ Giúp</a>
           </li>
-          <li className="hover:text-blue-500 cursor-pointer transition">
-            Xem gần đây
+          <li className="bg-[#E6E4E0] px-[25px] py-[6px] rounded-full hover:text-white hover:bg-[#04EEF6] cursor-pointer transition">
+            <a href="">Xem Gần Đây</a>
           </li>
         </ul>
         {/* Button */}
-        <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-[#04EEF6] transition">
+        <button className="bg-[#E6E4E0] text-black px-4 py-2 rounded-full hover:bg-[#04EEF6] transition">
           Đăng nhập
         </button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-[#04EEF6] transition">
+        <button className="bg-black text-white px-4 py-2 rounded-full hover:bg-[#04EEF6] transition">
           Đăng ký
         </button>
       </div>
