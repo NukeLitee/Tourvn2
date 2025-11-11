@@ -1,3 +1,5 @@
+import Herobanner1 from "../src/assets/images/BannerHeros1.jpg";
+
 const sampleToursData = [
   {
     id: "1",
@@ -65,4 +67,68 @@ const sampleToursData = [
     salePercentage: "10%",
   },
 ];
+
 export { sampleToursData };
+export const heroBannersData = [
+  {
+    id: 1,
+    imageUrl: Herobanner1, // Sử dụng ảnh trong /public/images/
+    title: "KHÁM PHÁ CÁC ĐỊA ĐIỂM DU LỊCH NỔI TIẾNG",
+    description:
+      "Mở ra chân trời mới, đam mê mới và danh sách phiêu lưu bất tận của bạn cùng Klook - trên mọi hành trình, dù gần hay xa.",
+    buttonText: "Khám phá ngay",
+  },
+  {
+    id: 2,
+    imageUrl: "./assets/images/BannerHero_2.jfif",
+    title: "TRẢI NGHIỆM HÀNG ĐẦU CHÂU Á",
+    description:
+      "Từ những bãi biển nhiệt đới đến các thành phố sôi động, luôn có một hành trình đang chờ đợi bạn.",
+    buttonText: "Xem các tour",
+  },
+  {
+    id: 3,
+    imageUrl: "./assets/images/BannerHero_3.jfif",
+    title: "ƯU ĐÃI ĐỘC QUYỀN MÙA HÈ",
+    description:
+      "Giảm giá lên đến 30% cho các hoạt động và vé tham quan. Đừng bỏ lỡ!",
+    buttonText: "Săn ưu đãi",
+  },
+];
+// /frontend/src/data.js
+
+// ... (thêm vào cuối file)
+export const experienceData = [
+  {
+    id: "e1",
+    image: "/images/exp-venice.jpg", // Thay bằng ảnh của bạn trong /public/images/
+    title: "Chốt gấp kèo TPHCM",
+    subtitle1: "Deal du lịch hot nhất",
+    subtitle2: "Du lịch TPHCM",
+    buttonText: "khám phá",
+  },
+  {
+    id: "e2",
+    image: "/images/exp-venice.jpg",
+    title: "Chốt gấp kèo TPHCM",
+    subtitle1: "Deal du lịch hot nhất",
+    subtitle2: "Du lịch TPHCM",
+    buttonText: "khám phá",
+  },
+  {
+    id: "e3",
+    image: "/images/exp-venice.jpg",
+    title: "Chốt gấp kèo TPHCM",
+    subtitle1: "Deal du lịch hot nhất",
+    subtitle2: "Du lịch TPHCM",
+    buttonText: "khám phá",
+  },
+  {
+    id: "e4",
+    image: "/images/exp-venice.jpg",
+    title: "Chốt gấp kèo TPHCM",
+    subtitle1: "Deal du lịch hot nhất",
+    subtitle2: "Du lịch TPHCM",
+    buttonText: "khám phá",
+  },
+];

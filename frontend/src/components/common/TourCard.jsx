@@ -7,7 +7,7 @@ function TourCard({ tour }) {
   }
 
   return (
-    <div className="w-[273px] h-[379px] bg-white rounded-xl shadow-md overflow-hidden flex flex-col">
+    <div className="w-[273px] h-[379px] bg-white rounded-xl shadow-md overflow-hidden flex flex-col transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:shadow-xl">
       {/* 1. VÙNG ẢNH: Cố định 273x182 px */}
       <div className="relative h-[182px] w-[273px] flex-shrink-0">
         {" "}
