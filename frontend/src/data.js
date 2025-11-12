@@ -132,3 +132,15 @@ export const experienceData = [
     buttonText: "khám phá",
   },
 ];
+export const BookingTourData = {
+  id: 'tour-123',
+  title: 'Vé Xe Buýt 2 Tầng Ngắm Cảnh ở Thành Phố Hồ Chí Minh...',
+  price: '1,090,972',
+  currency: 'VNĐ',
+  images: [
+    '/images/gallery/venice-1.jpg',
+    '/images/gallery/venice-2.jpg',
+    '/images/gallery/venice-3.jpg',
+    '/images/gallery/venice-4.jpg'
+  ]
+};

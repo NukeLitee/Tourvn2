@@ -5,22 +5,8 @@ import TourCardDiv from '../components/layout/TourCardDiv';
 import Header from '../components/common/Header';
 // ✅ Import 2 component này (vốn nằm trong BookingForm cũ)
 import TourImageGallery from '../components/common/TourImageGallery'; 
-import { InformationCircleIcon } from '@heroicons/react/24/outline'; // Cần cho Hộp thông báo
-
-// Giả lập dữ liệu được tải từ API
-const tourData = {
-  id: 'tour-123',
-  title: 'Vé Xe Buýt 2 Tầng Ngắm Cảnh ở Thành Phố Hồ Chí Minh...',
-  price: '1,090,972',
-  currency: 'VNĐ',
-  images: [
-    '/images/gallery/venice-1.jpg',
-    '/images/gallery/venice-2.jpg',
-    '/images/gallery/venice-3.jpg',
-    '/images/gallery/venice-4.jpg'
-  ]
-};
-
+import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import { BookingTourData } from '../data';
 function BookingPage() {
   
   const handleBookingSubmit = (formData) => {
@@ -36,10 +22,10 @@ function BookingPage() {
         
         {/* --- PHẦN 1: TIÊU ĐỀ & GALLERY (FULL-WIDTH) --- */}
         <h2 className="text-4xl font-bold font-['Poppins',_sans-serif] mb-6">
-          {tourData.title}
+          {BookingTourData.title}
         </h2>
         
-        <TourImageGallery images={tourData.images} />
+        <TourImageGallery images={BookingTourData.images} />
 
         {/* --- PHẦN 2: BỐ CỤC 2 CỘT MỚI (THEO YÊU CẦU CỦA BẠN) --- */}
         <div className="flex flex-col lg:flex-row lg:gap-8 mt-6"> {/* 'mt-6' tạo khoảng cách với Gallery */}
@@ -61,8 +47,8 @@ function BookingPage() {
           {/* CỘT PHẢI: CHECKOUT SIDEBAR */}
           <div className="w-full lg:w-[360px] lg:flex-shrink-0 mt-8 lg:mt-0">
             <CheckoutSidebar 
-              price={tourData.price} 
-              currency={tourData.currency}
+              price={BookingTourData.price} 
+              currency={BookingTourData.currency}
               onSubmit={handleBookingSubmit} 
             />
           </div>
