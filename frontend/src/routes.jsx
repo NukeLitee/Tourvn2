@@ -26,4 +26,9 @@ export const routes = [
     element: <Cart />,
     layout: null,
   },
+  {
+    path: "/chot-keo-hcm",
+    element: <ChotGapKeo />,
+    layout: null,
+  },
 ];
