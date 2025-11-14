@@ -1,4 +1,5 @@
 import Herobanner1 from "../src/assets/images/BannerHeros1.jpg";
+import HoChiMinh from "./assets/images/Hochiminh.jpg";
 
 const sampleToursData = [
   {

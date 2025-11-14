@@ -5,6 +5,7 @@ import HeroBanner from "../components/common/HeroBanner.jsx";
 import ExperienceSlider from "../components/layout/ExperienceSlider.jsx";
 import FeaturedActivities from "../components/sections/FeaturedActivities.jsx";
 import SectionDuLich from "../components/layout/SectionDuLich.jsx";
+import SectionDuLich from "../components/layout/SectionDuLich.jsx";
 function HomePage() {
   return (
     <>

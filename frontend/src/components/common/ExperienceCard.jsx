@@ -9,8 +9,8 @@ function ExperienceCard({ item }) {
       rounded-2xl             
       overflow-hidden           
       relative                  
-      flex-shrink-0     
-      font-['Poppins',_sans-serif] 
+      flex shrink-0     
+      font-['Poppins',sans-serif] 
     "
     >
       {/* 1. Ảnh nền (nằm ở lớp dưới cùng) */}
