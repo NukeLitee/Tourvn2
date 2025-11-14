@@ -5,9 +5,9 @@ import CardDuLich from "../common/CardDuLich";
 function SectionDuLich() {
     return (
         <div className="max-w-auto mx-[176px] py-[51px] relative">
-            <div className="pb-[32px]  ">
+            <div className="pb-[32px] flex">
                 <p className="
-                    w-auto h-[36px]
+                    w-auto h-[36px] 
                     text-[28px] font-semibold">Bạn muốn đi đâu?</p>
             </div>
 

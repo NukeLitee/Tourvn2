@@ -26,7 +26,7 @@ function ExperienceSlider() {
 
   return (
     // Dùng max-w-[1160px] giống slider trước để đồng bộ
-    <div className="w-full max-w-[1160px] mx-auto py-8 relative font-['Poppins',_sans-serif]">
+    <div className="w-full max-w-[1160px] mx-auto py-8 relative font-['Poppins',sans-serif]">
       <h2 className="text-3xl font-bold mb-6">Trải nghiệm cho mọi người</h2>
 
       {/* Viewport: Ẩn các card bị tràn */}
@@ -56,7 +56,7 @@ function ExperienceSlider() {
         <button
           onClick={handleNext}
           className="absolute top-1/2 -translate-y-1/2 -right-14 bg-white rounded-full p-2 shadow-lg z-10 hover:bg-gray-100"
-        >
+        > 
           <ChevronRightIcon className="h-6 w-6 text-gray-700" />
         </button>
       )}
