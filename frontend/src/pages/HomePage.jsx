@@ -5,6 +5,7 @@ import HeroBanner from "../components/common/HeroBanner.jsx";
 import ExperienceSlider from "../components/layout/ExperienceSlider.jsx";
 import FeaturedActivities from "../components/sections/FeaturedActivities.jsx";
 import SectionDuLich from "../components/layout/SectionDuLich.jsx";
+import Promotions from "../components/sections/Promotions.jsx";
 function HomePage() {
   return (
     <>
@@ -20,6 +21,9 @@ function HomePage() {
       </div>
       <div className="mt-[51px]">
         <ExperienceSlider />
+      </div>
+      <div>
+        <Promotions />
       </div>
     </>
   );

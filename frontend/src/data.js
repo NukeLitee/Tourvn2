@@ -255,3 +255,61 @@ export const chotkeoData = [
     salePercentage: "10%",
   },
 ];
+export const sampleCartData = [
+  {
+    id: "cart1",
+    image: "/images/gallery/venice-1.jpg", // Dùng ảnh từ /public
+    title: "Vé Sở Thú Singapore kèm Xe Điện",
+    description:
+      "[Ưu đãi - Ngày mở] Vé vào cửa combo 2 người (Không áp dụng cho cư dân)",
+    tag: "Sale 20%",
+    price: "1090972", // Giá (string) cho 1 đơn vị
+    quantity: 1, // Số lượng
+  },
+  {
+    id: "cart2",
+    image: "/images/gallery/venice-2.jpg",
+    title: "Vé Sở Thú Singapore kèm Xe Điện",
+    description:
+      "[Ưu đãi - Ngày mở] Vé vào cửa combo 2 người (Không áp dụng cho cư dân)",
+    tag: "Sale 20%",
+    price: "1090972",
+    quantity: 1,
+  },
+  {
+    id: "cart3",
+    image: "/images/gallery/venice-3.jpg",
+    title: "Vé Sở Thú Singapore kèm Xe Điện",
+    description:
+      "[Ưu đãi - Ngày mở] Vé vào cửa combo 2 người (Không áp dụng cho cư dân)",
+    tag: "Sale 20%",
+    price: "1090972",
+    quantity: 1,
+  },
+];
+export const promotionData = [
+  {
+    id: "promo1",
+    image:
+      "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop", // Ảnh ví dụ (Sale 11.11)
+    title: "11.11 Du lịch Sale rất nhiệt",
+  },
+  {
+    id: "promo2",
+    image:
+      "https://images.unsplash.com/photo-1607082349566-187342175e2f?q=80&w=2070&auto=format&fit=crop", // Ảnh ví dụ (Mã giảm 50%)
+    title: "Săn Deal Siêu Hời",
+  },
+  {
+    id: "promo3",
+    image:
+      "https://images.unsplash.com/photo-1472396961693-142e6e594e3c?q=80&w=2070&auto=format&fit=crop", // Ảnh ví dụ (Sale sinh nhật)
+    title: "Sale Sinh Nhật - Giảm đến 40%",
+  },
+  {
+    id: "promo4",
+    image:
+      "https://images.unsplash.com/photo-1526178613552-2b45c6c302f0?q=80&w=2070&auto=format&fit=crop", // Ảnh thêm để trượt
+    title: "Ưu đãi thẻ tín dụng",
+  },
+];

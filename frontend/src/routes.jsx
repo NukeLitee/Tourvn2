@@ -4,7 +4,9 @@ import ChotGapKeo from "./pages/ChotKeoHCM";
 import DefaultLayout from "./components/layout/DefaultLayout";
 import BookingPage from "./pages/BookingPage";
 import Help from "./pages/Help";
-import Cart from "./pages/Cart";
+import CartPage from "./pages/CartPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 export const routes = [
   {
     path: "/",
@@ -12,7 +14,7 @@ export const routes = [
     layout: null,
   },
   {
-    path: "/DatTour",
+    path: "/booking/:id",
     element: <BookingPage />,
     layout: null,
   },
@@ -23,12 +25,22 @@ export const routes = [
   },
   {
     path: "/cart",
-    element: <Cart />,
+    element: <CartPage />,
     layout: null,
   },
   {
-    path: "/chot-keo-hcm",
+    path: "/experience/:id",
     element: <ChotGapKeo />,
+    layout: null,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+    layout: null,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
     layout: null,
   },
 ];

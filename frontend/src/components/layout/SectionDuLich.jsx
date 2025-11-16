@@ -24,11 +24,17 @@ function SectionDuLich() {
       >
         <button
           className="
-                    py-[7px] px-[12px] w-[294px]
-                    text-[14px] font-medium text-center text-white
-                    border rounded-[50px] 
-                    bg-blue-400 shadow-md
-                    hover:bg-blue-500 active:scale-95 transition duration-150"
+          bg-cyan-500          
+          hover:bg-cyan-600    
+          text-white           
+          font-semibold
+          font-['Poppins',_sans-serif]
+          text-lg
+          w-[190px]
+          h-[36px]            
+          rounded-full         
+          transition-colors
+        "
         >
           Xem tất cả
         </button>

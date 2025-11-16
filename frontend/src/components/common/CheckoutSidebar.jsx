@@ -1,31 +1,29 @@
-// /frontend/src/components/booking/CheckoutSidebar.jsx
+// /frontend/src/components/common/CheckoutSidebar.jsx
 
-import React from 'react';
+import React from "react";
 
-function CheckoutSidebar({ price, currency, onSubmit }) {
-
+// Thêm prop "submitButtonText"
+function CheckoutSidebar({
+  price,
+  currency,
+  onSubmit,
+  submitButtonText = "Chọn gói dịch vụ",
+}) {
   const handleSubmit = () => {
-    // Trong tương lai, bạn có thể thu thập thêm dữ liệu ở đây
-    // trước khi gọi hàm onSubmit của component cha
-    const checkoutData = {
-      // ví dụ: voucherCode, ...
-    };
-    onSubmit(checkoutData);
+    onSubmit();
   };
 
   return (
-    // "sticky top-8" làm cho nó dính lại ở trên cùng khi cuộn
     <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 sticky top-8">
-      
       <div className="flex justify-between items-center mb-5">
         <span className="text-lg font-semibold text-gray-700">Tổng cộng</span>
         <span className="text-2xl font-bold text-black">
-          đ {price}
+          {currency === "VNĐ" ? "đ" : ""} {price}
         </span>
       </div>
-      
-      <button 
-        onClick={handleSubmit} 
+
+      <button
+        onClick={handleSubmit}
         className="
           w-full 
           bg-cyan-500 hover:bg-cyan-600 
@@ -38,10 +36,9 @@ function CheckoutSidebar({ price, currency, onSubmit }) {
           transition-colors
         "
       >
-        Chọn gói dịch vụ
+        {submitButtonText} {/* Dùng prop ở đây */}
       </button>
-      
-      {/* (Tùy chọn) Thêm các chi tiết khác nếu cần */}
+
       <div className="mt-4 text-xs text-gray-500 text-center">
         Bạn sẽ không bị tính phí cho đến khi xác nhận.
       </div>
