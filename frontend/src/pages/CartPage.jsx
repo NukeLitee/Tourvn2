@@ -85,9 +85,9 @@ function CartPage() {
     selectedIds.length === cartItems.length && cartItems.length > 0;
 
   return (
+    <>
+    <Header />
     <div className="bg-gray-100 min-h-screen font-['Poppins',_sans-serif]">
-      <Header />
-
       <main className="container mx-auto max-w-[1160px] py-10">
         <h1 className="text-3xl font-bold mb-6">Giỏ hàng</h1>
 
@@ -143,6 +143,7 @@ function CartPage() {
         </div>
       </main>
     </div>
+    </>
   );
 }
 ; 
