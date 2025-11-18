@@ -1,12 +1,12 @@
-// /frontend/src/components/common/CartItem.jsx
-
 import React from "react";
 // (Cần cài: npm install @heroicons/react)
 import { PlusIcon, MinusIcon } from "@heroicons/react/24/outline";
 
 function CartItem({ item, isSelected, onSelect, onQuantityChange, onDelete }) {
   // Tính tổng phụ cho riêng item này
-  const priceNumber = parseFloat(item.price.replace(/[.,]/g, ""));
+  // Chuyển đổi giá từ string sang number (vd: "1.090.972" -> 1090972)
+  const priceString = String(item.price).replace(/[.,]/g, "");
+  const priceNumber = parseFloat(priceString) || 0;
   const subtotal = (priceNumber * item.quantity).toLocaleString("vi-VN");
 
   return (
@@ -17,31 +17,33 @@ function CartItem({ item, isSelected, onSelect, onQuantityChange, onDelete }) {
         <div className="flex items-start md:items-center gap-4">
           <input
             type="checkbox"
-            className="h-5 w-5 mt-1 md:mt-0"
+            className="h-5 w-5 mt-1 md:mt-0 cursor-pointer"
             checked={isSelected}
             onChange={() => onSelect(item.id)}
           />
           <img
             src={item.image}
             alt={item.title}
-            className="w-24 h-24 md:w-28 md:h-28 rounded-lg object-cover"
+            className="w-24 h-24 md:w-28 md:h-28 rounded-lg object-cover flex-shrink-0"
           />
         </div>
 
         {/* Thông tin */}
         <div className="flex-grow">
-          <h3 className="font-semibold text-lg">{item.title}</h3>
-          <p className="text-sm text-gray-600 line-clamp-2">
+          <h3 className="font-semibold text-base md:text-lg">{item.title}</h3>
+          <p className="text-sm text-gray-600 line-clamp-2 mt-1">
             {item.description}
           </p>
-          <span
-            className="
-            border border-orange-400 text-orange-500 text-xs font-semibold
-            px-2 py-0.5 rounded-md bg-white mt-2 inline-block
-          "
-          >
-            {item.tag}
-          </span>
+          {item.tag && (
+            <span
+              className="
+              border border-orange-400 text-orange-500 text-xs font-semibold
+              px-2 py-0.5 rounded-md bg-white mt-2 inline-block
+            "
+            >
+              {item.tag}
+            </span>
+          )}
         </div>
 
         {/* Bộ đếm số lượng */}

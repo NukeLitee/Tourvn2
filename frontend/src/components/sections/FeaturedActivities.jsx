@@ -1,93 +1,113 @@
-import React, { useState } from "react";
-// 1. Import component "khuôn" TourCard
+import React, { useState, useEffect } from "react";
 import TourCard from "../common/TourCard";
-// 2. Import data (giữ nguyên)
-import { sampleToursData } from "../../data.js";
-
-// 3. Import icon cho mũi tên (cần cài: npm install @heroicons/react)
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
-// Kích thước của 1 card + 1 gap
-// Card width (273px) + gap-6 (24px) = 297px
+const API_URL = "http://localhost:5000/api/tours";
+
 const CARD_SLOT_WIDTH = 273 + 24;
-const CARDS_PER_PAGE = 4; // Hiển thị 4 card
+const CARDS_PER_PAGE = 4;
 
 function FeaturedActivities() {
-  // 4. Lấy logic state và các hàm từ TourCardDiv
   const [startIndex, setStartIndex] = useState(0);
+  const [activities, setActivities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const totalTours = sampleToursData.length;
-  // Tính toán vị trí index tối đa có thể trượt tới
-  const maxIndex = Math.max(0, totalTours - CARDS_PER_PAGE);
+  useEffect(() => {
+    const fetchActivities = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(API_URL);
+        if (!response.ok) throw new Error(`Lỗi: ${response.status}`);
+        const data = await response.json();
 
-  const handleNext = () => {
-    setStartIndex((prevIndex) => Math.min(prevIndex + 1, maxIndex));
-  };
+        // Lọc lấy category 'experience'
+        const experienceItems = data.filter(
+          (item) => item.category === "experience"
+        );
+        setActivities(
+          experienceItems.length > 0 ? experienceItems : data.slice(0, 8)
+        );
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchActivities();
+  }, []);
 
-  const handlePrev = () => {
-    setStartIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-  };
+  const totalItems = activities.length;
+  const maxIndex = Math.max(0, totalItems - CARDS_PER_PAGE);
 
-  // Tính toán khoảng cách trượt
+  const handleNext = () =>
+    setStartIndex((prev) => Math.min(prev + 1, maxIndex));
+  const handlePrev = () => setStartIndex((prev) => Math.max(prev - 1, 0));
+
   const slideOffset = startIndex * CARD_SLOT_WIDTH;
 
+  if (loading)
+    return (
+      <div className="py-12 text-center text-gray-500">
+        Đang tải hoạt động...
+      </div>
+    );
+  if (error)
+    return <div className="py-12 text-center text-red-500">Lỗi: {error}</div>;
+
+  // Nếu không có hoạt động nào thì không hiển thị
+  if (activities.length === 0) return null;
+
   return (
-    // Container chính của section
-    <div className="container mx-auto py-12 w-full max-w-[1160px]">
-      {/* 1. Tiêu đề section */}
+    // ĐÃ XÓA: py-12 px-6
+    <div className="container mx-auto w-full max-w-[1160px]">
       <h2 className="text-3xl font-bold mb-6 font-['Poppins',_sans-serif]">
         Các hoạt động nổi bật
       </h2>
 
-      {/* 2. Phần Slider (Lấy từ TourCardDiv) */}
       <div className="relative">
-        {" "}
-        {/* Thêm 'relative' để chứa các nút */}
-        {/* "Viewport": Thêm 'overflow-hidden' */}
         <div className="overflow-hidden">
-          {/* "Track": Div di chuyển bằng transform */}
           <div
-            className="flex gap-6 pb-4 transition-transform duration-500 ease-in-out"
+            className="flex gap-5 pb-4 transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${slideOffset}px)` }}
           >
-            {sampleToursData.map((tour) => (
-              <div key={tour.id} className="flex-shrink-0">
+            {activities.map((tour) => (
+              <div key={tour._id} className="flex-shrink-0">
                 <TourCard tour={tour} />
               </div>
             ))}
           </div>
         </div>
-        {/* Nút "Previous" */}
+
         {startIndex > 0 && (
           <button
             onClick={handlePrev}
             className="
-              absolute top-1/2 -translate-y-1/2 -left-14
+              absolute top-1/2 -translate-y-1/2 -left-14 
               bg-white rounded-full p-2 shadow-lg z-10 
-              hover:bg-gray-100 transition-colors
+              hover:bg-gray-100 transition-colors border border-gray-100
             "
-            style={{ top: "190px" }} // Căn giữa theo chiều dọc của card
+            style={{ top: "190px" }}
           >
             <ChevronLeftIcon className="h-6 w-6 text-gray-700" />
           </button>
         )}
-        {/* Nút "Next" */}
+
         {startIndex < maxIndex && (
           <button
             onClick={handleNext}
             className="
-              absolute top-1/2 -translate-y-1/2 -right-14
+              absolute top-1/2 -translate-y-1/2 -right-14 
               bg-white rounded-full p-2 shadow-lg z-10 
-              hover:bg-gray-100 transition-colors
+              hover:bg-gray-100 transition-colors border border-gray-100
             "
-            style={{ top: "190px" }} // Căn giữa theo chiều dọc của card
+            style={{ top: "190px" }}
           >
             <ChevronRightIcon className="h-6 w-6 text-gray-700" />
           </button>
         )}
       </div>
 
-      {/* 3. Nút "Xem tất cả" (Giữ nguyên) */}
       <div className="flex justify-center mt-8">
         <button
           className="
@@ -97,10 +117,10 @@ function FeaturedActivities() {
           font-semibold
           font-['Poppins',_sans-serif]
           text-lg
-          w-[190px]
-          h-[36px]            
+          py-3 px-10            
           rounded-full         
           transition-colors
+          shadow-md hover:shadow-lg
         "
         >
           Xem tất cả
