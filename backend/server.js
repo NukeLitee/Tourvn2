@@ -4,9 +4,11 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/db.js";
 
+// Import routes
 import tourRoutes from "./routes/tourRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import uploadRoutes from "./routes/uploadRoutes.js";
 
 dotenv.config();
 connectDB();
@@ -16,17 +18,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Routes API
 app.use("/api/tours", tourRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/upload", uploadRoutes);
 
-// --- CẤU HÌNH STATIC FOLDER (SỬA LẠI CHO ĐÚNG CẤU TRÚC CỦA BẠN) ---
+// --- CẤU HÌNH STATIC FOLDER (QUAN TRỌNG) ---
+// Lấy đường dẫn thư mục hiện tại (cách làm cho ES Module)
 const __dirname = path.resolve();
 
-// Code cũ (SAI với máy bạn): app.use('/images', express.static(path.join(__dirname, 'images')));
-
-// Code mới (ĐÚNG): Trỏ vào thư mục 'data/images' như trong hình bạn gửi
-app.use("/images", express.static(path.join(__dirname, "data", "images")));
+// Cho phép truy cập thư mục 'uploads' thông qua đường dẫn /uploads
+// Ví dụ: Nếu có file ảnh backend/uploads/image-123.png,
+// trình duyệt có thể xem qua http://localhost:5000/uploads/image-123.png
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.get("/", (req, res) => {
   res.send("API is running...");

@@ -7,6 +7,10 @@ import Help from "./pages/Help";
 import CartPage from "./pages/CartPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
+import VoucherPage from "./pages/VouncherPage";
+import ProfileVouchersPage from "./pages/ProfileVouncherPage";
+import OrderPage from "./pages/ProfileOrderPage";
 export const routes = [
   {
     path: "/",
@@ -41,6 +45,26 @@ export const routes = [
   {
     path: "/register",
     element: <RegisterPage />,
+    layout: null,
+  },
+  {
+    path: "profile",
+    element: <ProfilePage />,
+    layout: null,
+  },
+  {
+    path: "voucher",
+    element: <VoucherPage />,
+    layout: null,
+  },
+  {
+    path: "profile/vouchers",
+    element: <ProfileVouchersPage />,
+    layout: null,
+  },
+  {
+    path: "profile/bookings",
+    element: <OrderPage />,
     layout: null,
   },
 ];

@@ -3,18 +3,26 @@ import {
   registerUser,
   loginUser,
   getUserProfile,
+  updateUserProfile,
+  saveVoucher, // Import
+  getUserVouchers, // Import
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// POST /api/users/register (Đăng ký)
 router.route("/register").post(registerUser);
-
-// POST /api/users/login (Đăng nhập)
 router.route("/login").post(loginUser);
 
-// GET /api/users/profile (Lấy thông tin cá nhân - cần đăng nhập)
-router.route("/profile").get(protect, getUserProfile);
+router
+  .route("/profile")
+  .get(protect, getUserProfile)
+  .put(protect, updateUserProfile);
+
+// ✅ Route mới cho Vouchers
+router
+  .route("/vouchers")
+  .post(protect, saveVoucher) // Lưu voucher
+  .get(protect, getUserVouchers); // Lấy danh sách
 
 export default router;

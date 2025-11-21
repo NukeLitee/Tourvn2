@@ -117,10 +117,10 @@ function FeaturedActivities() {
           font-semibold
           font-['Poppins',_sans-serif]
           text-lg
-          py-3 px-10            
+          w-[190px]
+          h-[36px]            
           rounded-full         
           transition-colors
-          shadow-md hover:shadow-lg
         "
         >
           Xem tất cả
