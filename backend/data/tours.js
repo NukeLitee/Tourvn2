@@ -1,3 +1,4 @@
+import tour1 from "./images/tour-1.jpg";
 const tours = [
   // ============================================================
   // 1. LOẠI: EXPERIENCE (Dùng cho ExperienceSlider - Trải nghiệm)
@@ -351,12 +352,7 @@ const tours = [
     buttonText: "Mua vé",
     description:
       "Tìm hiểu về lịch sử chiến tranh Việt Nam qua các hiện vật, hình ảnh trưng bày tại bảo tàng.",
-    images: [
-      "/images/tour-1.jpg",
-      "/images/tour-2.jpg",
-      "/images/tour-3.jpg",
-      "/images/tour-4.jpg",
-    ],
+    images: [tour1, tour1, tour1, tour1],
   },
   {
     title: "Workshop Làm Gốm",

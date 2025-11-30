@@ -9,7 +9,7 @@ import tourRoutes from "./routes/tourRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
-
+import orderRoutes from "./routes/orderRoutes.js";
 dotenv.config();
 connectDB();
 
@@ -23,7 +23,7 @@ app.use("/api/tours", tourRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/upload", uploadRoutes);
-
+app.use("/api/orders", orderRoutes);
 // --- CẤU HÌNH STATIC FOLDER (QUAN TRỌNG) ---
 // Lấy đường dẫn thư mục hiện tại (cách làm cho ES Module)
 const __dirname = path.resolve();
