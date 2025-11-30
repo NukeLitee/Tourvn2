@@ -6,6 +6,7 @@ import ExperienceSlider from "../components/layout/ExperienceSlider.jsx";
 import FeaturedActivities from "../components/sections/FeaturedActivities.jsx";
 import SectionDuLich from "../components/layout/SectionDuLich.jsx";
 import Promotions from "../components/sections/Promotions.jsx";
+import Footer from "../components/layout/Footer.jsx";
 function HomePage() {
   return (
     <>
@@ -24,6 +25,9 @@ function HomePage() {
       </div>
       <div>
         <Promotions />
+      </div>
+      <div>
+        <Footer />
       </div>
     </>
   );
