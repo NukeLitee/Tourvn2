@@ -4,7 +4,6 @@ import logo from "../../assets/images/LogoTourVN.jpg";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { useCart } from "../../context/CartContext.jsx";
 
-// Import Icons
 import { BsSearch, BsPersonCircle } from "react-icons/bs";
 import { FiLogOut } from "react-icons/fi";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
@@ -22,10 +21,8 @@ function Header() {
     navigate("/login");
   };
 
-  // --- COMPONENT HEADER CŨ (GUEST) ---
   const GuestHeader = () => (
     <div className="flex items-center justify-between h-16 max-w-[1160px] mx-auto">
-      {/* Bên trái: Logo & Search nhỏ */}
       <div className="flex items-center gap-4">
         <Link to="/" className="flex-shrink-0">
           <img
@@ -46,7 +43,6 @@ function Header() {
         </div>
       </div>
 
-      {/* Bên phải: Link & Button */}
       <div className="flex items-center gap-2">
         <Link
           to="/"
@@ -83,13 +79,9 @@ function Header() {
     </div>
   );
 
-  // --- COMPONENT HEADER MỚI (USER) ---
-  // Đã sửa lại CSS Logo và Search để giống GuestHeader
   const UserHeader = () => (
     <div className="flex items-center justify-between h-16 max-w-[1160px] mx-auto">
-      {/* 1. Bên trái: Giống hệt GuestHeader */}
       <div className="flex items-center gap-4">
-        {/* Logo nhỏ: w-[82px] */}
         <Link to="/" className="flex-shrink-0">
           <img
             src={logo}
@@ -98,7 +90,6 @@ function Header() {
           />
         </Link>
 
-        {/* Search nhỏ: w-[300px] */}
         <div className="relative w-[300px] hidden md:block">
           <input
             type="text"
@@ -111,14 +102,12 @@ function Header() {
         </div>
       </div>
 
-      {/* 2. Bên phải: Thay đổi nội dung nhưng giữ style tương đồng */}
       <div className="flex items-center gap-2">
-        {/* Các link chức năng */}
         <Link
-          to="/app"
+          to="/"
           className="hidden lg:block px-4 py-2 text-sm font-medium text-gray-700 rounded-full hover:bg-gray-100 transition-colors"
         >
-          Mở ứng dụng
+          Trang chủ
         </Link>
         <Link
           to="/help"
@@ -133,7 +122,6 @@ function Header() {
           Xem gần đây
         </Link>
 
-        {/* Nút Giỏ Hàng (Viên thuốc) */}
         <Link
           to="/cart"
           className="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-full relative transition-colors group ml-2"
@@ -148,7 +136,6 @@ function Header() {
           )}
         </Link>
 
-        {/* Avatar User & Dropdown */}
         <div className="relative ml-2">
           <button
             onClick={() => setShowUserMenu(!showUserMenu)}
@@ -165,7 +152,6 @@ function Header() {
             )}
           </button>
 
-          {/* Dropdown Menu */}
           {showUserMenu && (
             <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-50">
               <div className="px-4 py-3 border-b border-gray-100 bg-gray-50/50">

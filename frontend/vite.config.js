@@ -5,4 +5,15 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react()],
+  server: {
+    port: 5173, // Cổng frontend (mặc định)
+    proxy: {
+      // Bất kỳ request nào bắt đầu bằng /api sẽ được chuyển sang http://localhost:5000
+      "/api": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
+  },
 });

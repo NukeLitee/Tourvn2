@@ -1,62 +1,97 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
+import { useAuth } from "./AuthContext";
 
 const CartContext = createContext();
 
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  // Lấy dữ liệu từ localStorage nếu có
-  const [cartItems, setCartItems] = useState(() => {
-    const localData = localStorage.getItem("cartItems");
-    return localData ? JSON.parse(localData) : [];
-  });
+  const { user } = useAuth();
+  const [cartItems, setCartItems] = useState([]);
 
-  // Lưu vào localStorage mỗi khi cart thay đổi
+  // Cờ để kiểm tra xem việc load dữ liệu lần đầu (khi đổi user) đã xong chưa
+  // Tránh việc Save chạy trước Load gây ghi đè dữ liệu rỗng/cũ lên user mới
+  const isLoadedRef = useRef(false);
+
+  // Tạo key động dựa vào user ID.
+  // Nếu chưa login thì dùng "cart_guest", nếu login thì "cart_USERID"
+  const cartKey = user && user._id ? `cart_${user._id}` : "cart_guest";
+
+  // 1. LOAD GIỎ HÀNG (Chạy khi cartKey thay đổi - tức là khi đổi user)
   useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems));
-  }, [cartItems]);
+    isLoadedRef.current = false; // Đánh dấu đang load
+    const storedCart = localStorage.getItem(cartKey);
 
-  // Hàm thêm vào giỏ hàng
+    if (storedCart) {
+      try {
+        setCartItems(JSON.parse(storedCart));
+      } catch (error) {
+        console.error("Lỗi parse giỏ hàng:", error);
+        setCartItems([]);
+      }
+    } else {
+      setCartItems([]); // User mới chưa có giỏ thì rỗng
+    }
+
+    isLoadedRef.current = true; // Đánh dấu đã load xong
+  }, [cartKey]);
+
+  // 2. SAVE GIỎ HÀNG (Chạy khi cartItems thay đổi)
+  useEffect(() => {
+    // Chỉ lưu khi đã load xong dữ liệu của user đó
+    if (isLoadedRef.current) {
+      localStorage.setItem(cartKey, JSON.stringify(cartItems));
+    }
+  }, [cartItems, cartKey]);
+
+  // --- CÁC HÀM XỬ LÝ (GIỮ NGUYÊN LOGIC CŨ) ---
+
   const addToCart = (product) => {
     setCartItems((prevItems) => {
-      // Kiểm tra xem sản phẩm đã có trong giỏ chưa
       const existingItem = prevItems.find((item) => item.id === product.id);
-
       if (existingItem) {
-        // Nếu có rồi thì tăng số lượng
         return prevItems.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
+      } else {
+        return [...prevItems, { ...product, quantity: 1 }];
       }
-      // Nếu chưa có thì thêm mới với quantity = 1
-      return [...prevItems, { ...product, quantity: 1 }];
     });
   };
 
-  // Hàm xóa khỏi giỏ hàng
   const removeFromCart = (productId) => {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item.id !== productId)
     );
   };
 
-  // Hàm cập nhật số lượng
-  const updateQuantity = (productId, newQuantity) => {
-    if (newQuantity < 1) return;
+  const updateQuantity = (productId, quantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === productId ? { ...item, quantity: newQuantity } : item
+        item.id === productId
+          ? { ...item, quantity: Math.max(1, quantity) }
+          : item
       )
     );
   };
 
-  // Hàm xóa các sản phẩm đã chọn (cho trang CartPage)
+  // Hàm xóa nhiều item (dùng cho nút "Xóa đã chọn" và sau khi Thanh toán)
   const removeSelectedItems = (selectedIds) => {
     setCartItems((prevItems) =>
       prevItems.filter((item) => !selectedIds.includes(item.id))
     );
+  };
+
+  const clearCart = () => {
+    setCartItems([]);
   };
 
   return (
@@ -67,6 +102,7 @@ export const CartProvider = ({ children }) => {
         removeFromCart,
         updateQuantity,
         removeSelectedItems,
+        clearCart,
       }}
     >
       {children}

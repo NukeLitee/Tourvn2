@@ -1,25 +1,31 @@
 import React, { useState, useMemo, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // 1. Import điều hướng
+
+// --- IMPORT TỪ PROJECT CỦA BẠN ---
 import Header from "../components/common/Header";
 import CheckoutSidebar from "../components/common/CheckoutSidebar";
 import CartItem from "../components/common/CartItem";
-// 1. Bỏ import sampleCartData, thay bằng useCart
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext"; // 2. Import Auth
 
 function CartPage() {
-  // 2. Lấy state và hàm từ Context
+  const navigate = useNavigate();
+  const { user } = useAuth(); // Lấy thông tin user
+
+  // Lấy state và hàm từ CartContext
   const { cartItems, updateQuantity, removeFromCart, removeSelectedItems } =
     useCart();
 
   const [selectedIds, setSelectedIds] = useState([]);
 
-  // Cập nhật selectedIds khi cartItems thay đổi (ví dụ khi xóa item)
+  // Đồng bộ selectedIds khi cartItems thay đổi
   useEffect(() => {
     setSelectedIds((prev) =>
       prev.filter((id) => cartItems.some((item) => item.id === id))
     );
   }, [cartItems]);
 
-  // 3. Các hàm xử lý logic (đã được đơn giản hóa nhờ Context)
+  // --- Các hàm xử lý logic giỏ hàng (Giữ nguyên) ---
   const handleQuantityChange = (itemId, newQuantity) => {
     updateQuantity(itemId, newQuantity);
   };
@@ -49,11 +55,11 @@ function CartPage() {
     setSelectedIds([]);
   };
 
+  // Tính tổng tiền
   const totalPrice = useMemo(() => {
     const total = cartItems.reduce((acc, item) => {
       if (selectedIds.includes(item.id)) {
-        // Chuyển đổi giá từ string sang number (vd: "1.090.972" -> 1090972)
-        // Lưu ý: Đảm bảo data.js dùng dấu chấm hoặc không dấu cho giá
+        // Xử lý giá (loại bỏ dấu chấm/phẩy nếu có để parse số)
         const priceString = String(item.price).replace(/[.,]/g, "");
         const priceNumber = parseFloat(priceString) || 0;
         return acc + priceNumber * item.quantity;
@@ -63,13 +69,81 @@ function CartPage() {
     return total.toLocaleString("vi-VN");
   }, [cartItems, selectedIds]);
 
-  const handleCheckout = () => {
+  // --- CHỨC NĂNG THANH TOÁN MỚI (Đã tích hợp API) ---
+  const handleCheckout = async () => {
+    // 1. Validate: Phải chọn sản phẩm
     if (selectedIds.length === 0) {
       alert("Vui lòng chọn ít nhất 1 sản phẩm để thanh toán");
       return;
     }
-    console.log("Thanh toán items:", selectedIds);
-    alert("Chức năng thanh toán đang phát triển!");
+
+    // 2. Validate: Phải đăng nhập
+    if (!user) {
+      const confirmLogin = window.confirm(
+        "Vui lòng đăng nhập để tiếp tục thanh toán. Đi đến trang đăng nhập?"
+      );
+      if (confirmLogin) navigate("/login");
+      return;
+    }
+
+    try {
+      // 3. Chuẩn bị dữ liệu đơn hàng
+      const checkoutItems = cartItems.filter((item) =>
+        selectedIds.includes(item.id)
+      );
+
+      // Helper parse giá
+      const parsePrice = (p) => parseFloat(String(p).replace(/[.,]/g, "")) || 0;
+      const totalAmount = checkoutItems.reduce(
+        (acc, item) => acc + parsePrice(item.price) * item.quantity,
+        0
+      );
+
+      const orderData = {
+        orderItems: checkoutItems.map((item) => ({
+          name: item.title || item.name, // Tên sản phẩm
+          qty: item.quantity,
+          image: item.image,
+          price: parsePrice(item.price),
+          product: item.id, // ID sản phẩm
+        })),
+        shippingAddress: {
+          address: user.address || "Cập nhật địa chỉ",
+          city: "Hồ Chí Minh",
+          phone: user.phone || "0909000000", // Giá trị mặc định nếu thiếu để tránh lỗi validation
+        },
+        paymentMethod: "Thanh toán khi nhận hàng (COD)",
+        totalPrice: totalAmount,
+      };
+
+      // 4. Gọi API tạo đơn hàng
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`, // Gửi token
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Đặt hàng thành công!");
+
+        // Xóa các sản phẩm đã mua khỏi giỏ
+        removeSelectedItems(selectedIds);
+        setSelectedIds([]);
+
+        // Chuyển hướng sang trang Đơn hàng
+        navigate("/profile/bookings");
+      } else {
+        alert(data.message || "Thanh toán thất bại. Vui lòng thử lại.");
+      }
+    } catch (error) {
+      console.error("Lỗi thanh toán:", error);
+      alert("Có lỗi xảy ra khi kết nối đến server.");
+    }
   };
 
   const allSelected =
@@ -96,13 +170,13 @@ function CartPage() {
                   onChange={handleSelectAll}
                   disabled={cartItems.length === 0}
                 />
-                <label className="font-medium text-gray-700">
+                <label className="font-medium text-gray-700 select-none">
                   Tất cả ({cartItems.length} dịch vụ)
                 </label>
               </div>
               <button
                 onClick={handleDeleteSelected}
-                className="text-red-500 hover:text-red-700 disabled:text-gray-400 font-medium text-sm"
+                className="text-red-500 hover:text-red-700 disabled:text-gray-400 font-medium text-sm transition-colors"
                 disabled={selectedIds.length === 0}
               >
                 Xóa dịch vụ đã chọn
@@ -134,7 +208,7 @@ function CartPage() {
             <CheckoutSidebar
               price={totalPrice}
               currency="VNĐ"
-              onSubmit={handleCheckout}
+              onSubmit={handleCheckout} // Gắn hàm thanh toán vào đây
               submitButtonText={`Thanh toán (${selectedIds.length})`}
             />
           </div>

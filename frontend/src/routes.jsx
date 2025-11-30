@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import VoucherPage from "./pages/VouncherPage";
 import ProfileVouchersPage from "./pages/ProfileVouncherPage";
 import OrderPage from "./pages/ProfileOrderPage";
+import CityPage from "./pages/CityPage";
 export const routes = [
   {
     path: "/",
@@ -65,6 +66,11 @@ export const routes = [
   {
     path: "profile/bookings",
     element: <OrderPage />,
+    layout: null,
+  },
+  {
+    path: "/city/:slug",
+    element: <CityPage />,
     layout: null,
   },
 ];
