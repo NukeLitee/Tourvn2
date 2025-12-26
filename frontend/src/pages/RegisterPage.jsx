@@ -39,9 +39,13 @@ function RegisterPage() {
           "linear-gradient(69deg, rgba(0, 219, 222, 1) 0%, rgba(142, 132, 245, 1) 100%)",
       }}
     >
-      <div className="flex flex-col justify-center items-center bg-[#DDF4FF] w-[436px] h-auto py-10 rounded-[20px] relative shadow-2xl">
-        <img src={logo} alt="logo" className="w-[82px] h-[24px] mb-6" />
-        <h3 className="text-[28px] mb-6 font-semibold text-gray-900">
+      <div className="relative flex flex-col justify-center items-center bg-[#DDF4FF] w-[436px] h-auto py-10 rounded-[20px] relative shadow-2xl ">
+        <img
+          src={logo}
+          alt="logo"
+          className="absolute w-[82px] h-[24px] mb-6 top-8 left-10"
+        />
+        <h3 className="text-[28px] mt-10 mb-6 font-semibold text-gray-900">
           Đăng ký tài khoản
         </h3>
 

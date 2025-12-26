@@ -1,4 +1,3 @@
-import tour1 from "./images/tour-1.jpg";
 const tours = [
   // ============================================================
   // 1. LOẠI: EXPERIENCE (Dùng cho ExperienceSlider - Trải nghiệm)
@@ -352,7 +351,12 @@ const tours = [
     buttonText: "Mua vé",
     description:
       "Tìm hiểu về lịch sử chiến tranh Việt Nam qua các hiện vật, hình ảnh trưng bày tại bảo tàng.",
-    images: [tour1, tour1, tour1, tour1],
+    images: [
+      "https://www.bachhoaxanh.com/kinh-nghiem-hay/di-1-lan-up-hinh-ca-thang-voi-5-bao-tang-cuc-chat-tai-sai-gon-1448264",
+      "https://www.bachhoaxanh.com/kinh-nghiem-hay/di-1-lan-up-hinh-ca-thang-voi-5-bao-tang-cuc-chat-tai-sai-gon-1448264",
+      "https://www.bachhoaxanh.com/kinh-nghiem-hay/di-1-lan-up-hinh-ca-thang-voi-5-bao-tang-cuc-chat-tai-sai-gon-1448264",
+      "https://www.bachhoaxanh.com/kinh-nghiem-hay/di-1-lan-up-hinh-ca-thang-voi-5-bao-tang-cuc-chat-tai-sai-gon-1448264",
+    ],
   },
   {
     title: "Workshop Làm Gốm",
